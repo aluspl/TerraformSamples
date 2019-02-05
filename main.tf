@@ -14,8 +14,7 @@ resource "azurerm_subnet" "subnet1" {
   name                 = "frontendsubnet"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
   resource_group_name  = "${azurerm_resource_group.production.name}"
-  address_prefix       = "${var.subnet_frontend_prefix}"
-  
+  address_prefix       = "${var.subnet_frontend_prefix}" 
 }
 
 resource "azurerm_subnet" "subnet2" {
