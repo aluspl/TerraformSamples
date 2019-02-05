@@ -1,17 +1,21 @@
 Terraform Examples
 # Skills
 
-| CO                      | STATUS | PRZYKŁAD |
-| ----------------------- | ------ | -------- |
-| TERRAFORM               | OK     |          |
-| Build VNET              | OK     |          |
-| Subnet                  | OK     |          |
-| NSG                     | OK     |          |
-| Storage Terraform State | OK     |          |
+| CO                      | STATUS | PRZYKŁAD           |
+| ----------------------- | ------ | ------------------ |
+| TERRAFORM               | OK     | This Doc           |
+| Build VNET              | OK     | main  = > network  |
+| Subnet                  | OK     | main => subnet     |
+| NSG                     | OK     | main => subnet nsg |
+| Storage Terraform State | OK     | secret             |
+| Best Practices          | OK     |                    |
 
 # Notes 
 
 terraform init => download tools (like azure provider)
-terraform map => preview of apply resources
+terraform plan => preview of apply resources
 terraform apply => run
-terraform delete => remove
+terraform destroy => remove
+
+Create azure blob storage and
+terraform init -backend-config="secret\backend.tfvars" -reconfigure
