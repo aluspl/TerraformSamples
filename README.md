@@ -16,6 +16,18 @@ terraform plan => preview of apply resources
 terraform apply => run
 terraform destroy => remove
 
+# Provider setting
+
+```
+provider "azurerm" {
+  subscription_id = "${var.azure_subscription_id}"
+  tenant_id       = "${var.azure_tenant_id}"
+  client_id       = "${var.azure_client_id}"
+  client_secret   = "${var.azure_client_secret}"
+}
+```
+
+
 # Variables
 ```
 variable "location" {  name  (using like ${var.location}" )
@@ -67,10 +79,28 @@ resource "azurerm_subnet_network_security_group_association" "backend" {
   network_security_group_id = "${azurerm_network_security_group.backend.id}"
 }
 ```
+
+# Terraform  Backend in Azure Storage
+
+```
+#Set the terraform backend
+terraform {
+  backend "azurerm" {
+    container_name       = "tfstate"
+    key                  = "terraform.tfstate"
+    resource_group_name  = "backupresource"
+    storage_account_name = "smotykaterraform"
+    access_key ="storagekeyhere"  Azure Storage Account blog
+
+  }
+}
+
+```
+
 # Secrets
 
-Create azure blob storage and configure secret\backed.tfvar with
-
+Create azure blob storage and configure secret\backed.tfvar with 
+and remove it from  backend (access_key shouldn't be public)
 ```
 container_name = "tfstate"
 key = "terraform.tfstate"
@@ -91,3 +121,4 @@ To using Azure Storage Blog to keeping tfstate init:
 ```
 terraform init -backend-config="secret\backend.tfvars" -reconfigure
 ```
+
