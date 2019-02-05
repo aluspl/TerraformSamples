@@ -102,20 +102,17 @@ terraform {
 Create azure blob storage and configure secret\backed.tfvar with 
 and remove it from  backend (access_key shouldn't be public)
 ```
-container_name = "tfstate"
-key = "terraform.tfstate"
-resource_group_name = "backupresource"
-storage_account_name = "smotykaterraform"
 access_key ="storagekeyhere"  Azure Storage Account blog
+(and other secrets)
 ```
 
-Create terraform.tfvar with 
+Create terraform.tfvar with  data from AZ Login and az ad sp create-for-rbac --role="Contributor"
 
 ```
-azure_client_id = "xx " AppID from az ad sp create-for-rbac --role="Contributor"
-azure_subscription_id = "xx" AZ Login
-azure_client_secret ="xx"  Password from az ad sp create-for-rbac --role="Contributor"
-azure_tenant_id ="xx" AZ Login
+azure_client_id = "xx " AppID from 
+azure_subscription_id = "xx" 
+azure_client_secret ="xx"  Password 
+azure_tenant_id ="xx" 
 ```
 To using Azure Storage Blog to keeping tfstate init:
 ```
