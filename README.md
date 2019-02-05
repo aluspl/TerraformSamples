@@ -17,5 +17,22 @@ terraform plan => preview of apply resources
 terraform apply => run
 terraform destroy => remove
 
-Create azure blob storage and
+Create azure blob storage and configure secret\backed.tfvar with
+''
+container_name = "tfstate"
+key = "terraform.tfstate"
+resource_group_name = "backupresource"
+storage_account_name = "smotykaterraform"
+access_key ="storagekeyhere"  Azure Storage Account blog
+''
+
+Create terraform.tfvar with 
+
+''
+azure_client_id = "xx " AppID from az ad sp create-for-rbac --role="Contributor"
+azure_subscription_id = "xx" AZ Login
+azure_client_secret ="xx"  Password from az ad sp create-for-rbac --role="Contributor"
+azure_tenant_id ="xx" AZ Login
+''
+
 terraform init -backend-config="secret\backend.tfvars" -reconfigure
