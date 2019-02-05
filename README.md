@@ -1,8 +1,8 @@
 # Skills
 
-| SKILL                      | STATUS | EXAMPLES                           |
+| SKILL                   | STATUS | EXAMPLES                           |
 | ----------------------- | -----: | ---------------------------------- |
-| TERRAFORM               |     OK | This Doc                           |
+| What Is Terraform?      |     OK | This Doc                           |
 | Build VNET              |     OK | main  = > network                  |
 | Subnet                  |     OK | main => subnet                     |
 | NSG                     |     OK | main => subnet nsg                 |
