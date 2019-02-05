@@ -46,7 +46,7 @@ resource "azurerm_subnet" "subnet1" {
   address_prefix       = "${var.subnet_frontend_prefix}" 
 }
 ```
-# NSGs
+# Network Security Group
 ```
 resource "azurerm_network_security_group" "backend" {
   name                = "backend_nsg"
