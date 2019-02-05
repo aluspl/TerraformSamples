@@ -107,7 +107,6 @@ resource "azurerm_network_security_group" "db" {
     destination_address_prefix = "Internet"
   }
 }
-
 resource "azurerm_subnet_network_security_group_association" "db" {
   subnet_id                 = "${azurerm_subnet.subnet3.id}"
   network_security_group_id = "${azurerm_network_security_group.db.id}"
