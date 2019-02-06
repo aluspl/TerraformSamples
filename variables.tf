@@ -17,13 +17,17 @@ variable "azure_subscription_id" {
 variable "resource_group_name" {
   type        = "string"
   description = "Name of your resource group"
-  default = "SmotykaResourceGroup"
+  default = "smotyka"
+}
+variable "admin_password" {
+  type  ="string"
+  description = "Password for SQL"  
 }
 
 variable "location" {
   type        = "string"
   description = "The location of your resource group"
-  default     = "UK West"
+  default     = "West Europe"
 }
 
 variable "subnet_frontend_prefix" {
@@ -39,4 +43,13 @@ variable "subnet_backend_prefix" {
 variable "subnet_db_prefix" {
   description = "The address prefix to use for the subnet."
   default     = "10.0.3.0/24"
+}
+variable "sql_prefix" {
+    description = "The address prefix to use for the sql db."
+    default   = "10.0.4.0/24"
+}
+
+variable "address_spaces" {
+  description = "The address prefix to use for the subnet."
+  default     = ["10.0.0.0/16"]
 }
