@@ -119,3 +119,14 @@ To using Azure Storage Blog to keeping tfstate init:
 terraform init -backend-config="secret\backend.tfvars" -reconfigure
 ```
 
+# Workspace
+```
+terraform workspace new {workspace name} -- create new workspace
+
+terraform workspace select {workspace name}  -- changed workspace
+```
+
+Using in code
+```
+${terraform.workspace} -- variable to  use name in code
+```

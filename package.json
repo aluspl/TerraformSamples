@@ -1,0 +1,9 @@
+{ "scripts" :
+    { "init" : "terraform init --backend-config='secret\\backend.tfvars' --reconfigure",
+      "runMain" : "terraform init",
+      "create": "terraform workspace new env1 && terraform worokspace new env2",
+      "apply:env1" : "terraform workspace select env1 && terraform apply -auto-approve",
+      "apply:env2" : "terraform workspace select env2 && terraform apply -auto-approve",
+      "apply:all" : "npm run apply:env1 && npm run apply:env2"
+    }
+  }

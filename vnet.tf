@@ -16,9 +16,4 @@ resource "azurerm_virtual_network" "production" {
     security_group = "${azurerm_network_security_group.backend.id}"
   }
 
-  subnet {
-    name           = "dbsubnet"
-    address_prefix = "${var.subnet_db_prefix}"
-    security_group = "${azurerm_network_security_group.db.id}"
-  }
 }
