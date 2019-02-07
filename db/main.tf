@@ -28,6 +28,7 @@ resource "azurerm_sql_database" "prod" {
   name                = "database-${terraform.workspace}"
   resource_group_name = "${var.resource_group_name}"
   location            = "${var.location}"
+  elastic_pool_name   = "${azurerm_sql_elasticpool.prod.name}"
   server_name         = "${azurerm_sql_server.prod.name}"
 }
 
@@ -60,6 +61,11 @@ resource "azurerm_role_assignment" "sqldb" {
 
 resource "azurerm_role_assignment" "sqlserv" {
   scope                = "${azurerm_sql_server.prod.id}"
+  role_definition_name = "Owner"
+  principal_id         = "${var.service_principal_id}"
+}
+resource "azurerm_role_assignment" "sqlelasticpool" {
+  scope                = "${azurerm_sql_elasticpool.prod.id}"
   role_definition_name = "Owner"
   principal_id         = "${var.service_principal_id}"
 }

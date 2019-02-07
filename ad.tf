@@ -11,9 +11,6 @@ resource "azuread_application" "prod" {
 resource "azuread_service_principal" "prod" {
   application_id = "${azuread_application.prod.application_id}"
 }
-data "azuread_service_principal" "prod" {
-  application_id = "${azuread_application.prod.application_id}"
-}
 resource "azuread_service_principal_password" "prod" {
   service_principal_id = "${azuread_service_principal.prod.id}"
   value                = "${var.azure_principal_password}"

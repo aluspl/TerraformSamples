@@ -37,13 +37,15 @@ resource "azurerm_virtual_machine" "prod" {
     admin_password = "Password1234!"
   }
 
-  identity {
-    type         = "UserAssigned"
-    identity_ids = ["${var.service_principal_id}"]
-  }
   os_profile_windows_config {}
 
   tags {
     environment = "staging"
   }
 }
+resource "azurerm_role_assignment" "vm" {
+  scope                = "${azurerm_virtual_machine.prod.id}"
+  role_definition_name = "Owner"
+  principal_id         = "${var.service_principal_id}"
+}
+

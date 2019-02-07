@@ -20,6 +20,6 @@ module "vm" {
   location             = "${azurerm_resource_group.prod.location}"
   virtual_network_name = "${azurerm_virtual_network.prod.name}"
   backend_subnet_id    = "${azurerm_subnet.backendsubnet.id}"
-  service_principal_id = "${azurerm_client_config.prod.service_principal_object_id}"  
+  service_principal_id = "${azuread_service_principal.prod.id}"  
   ip                   = "${var.subnet_backend_prefix}"
 }
