@@ -12,29 +12,17 @@ variable "virtual_network_name" {
   type        = "string"
   description = "Network name"
 }
-
-variable "admin_password" {
+variable "backend_subnet_id" {
   type        = "string"
-  description = "Network name"
-}
-
-variable "admin_username" {
-  type        = "string"
-  description = "Network name"
-  default     = "uberuser"
-}
-
-variable "group_policy_name" {
-  type        = "string"
-  description = "group policy"
-}
-
-variable "ip" {
-  type        = "string"
-  description = "SQL IP Address"
+  description = "Subnet ID"
 }
 variable "service_principal_id" {
   type  ="string"
   description ="princiapl id"
 }
 
+
+variable "ip" {
+  type        = "string"
+  description = "SQL IP Address"
+}

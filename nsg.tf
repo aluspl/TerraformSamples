@@ -1,8 +1,8 @@
 
 resource "azurerm_network_security_group" "db" {
   name                = "db"
-  location            = "${azurerm_resource_group.production.location}"
-  resource_group_name = "${azurerm_resource_group.production.name}"
+  location            = "${azurerm_resource_group.prod.location}"
+  resource_group_name = "${azurerm_resource_group.prod.name}"
 
    security_rule {
     name                       = "allow_backend"
@@ -31,8 +31,8 @@ resource "azurerm_network_security_group" "db" {
 
 resource "azurerm_network_security_group" "backend" {
   name                = "backend"
-  location            = "${azurerm_resource_group.production.location}"
-  resource_group_name = "${azurerm_resource_group.production.name}"
+  location            = "${azurerm_resource_group.prod.location}"
+  resource_group_name = "${azurerm_resource_group.prod.name}"
 
   security_rule {
     name                       = "allow_frontend"
@@ -49,8 +49,8 @@ resource "azurerm_network_security_group" "backend" {
 
 resource "azurerm_network_security_group" "frontend" {
   name                = "frontend"
-  location            = "${azurerm_resource_group.production.location}"
-  resource_group_name = "${azurerm_resource_group.production.name}"
+  location            = "${azurerm_resource_group.prod.location}"
+  resource_group_name = "${azurerm_resource_group.prod.name}"
 
   security_rule {
     name                       = "internet"

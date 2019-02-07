@@ -44,7 +44,7 @@ resource "azurerm_virtual_network" "vnet" {
   name                = "${var.resource_group_name}_vnet"
   location            = "${var.location}"
   address_space       = ["10.0.0.0/16"]
-  resource_group_name = "${azurerm_resource_group.production.name}"
+  resource_group_name = "${azurerm_resource_group.prod.name}"
 }
 ```
 
@@ -54,7 +54,7 @@ Create Subnet
 resource "azurerm_subnet" "subnet1" {
   name                 = "frontendsubnet"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
-  resource_group_name  = "${azurerm_resource_group.production.name}"
+  resource_group_name  = "${azurerm_resource_group.prod.name}"
   address_prefix       = "${var.subnet_frontend_prefix}" 
 }
 ```
@@ -62,8 +62,8 @@ resource "azurerm_subnet" "subnet1" {
 ```
 resource "azurerm_network_security_group" "backend" {
   name                = "backend_nsg"
-  location            = "${azurerm_resource_group.production.location}"
-  resource_group_name = "${azurerm_resource_group.production.name}"
+  location            = "${azurerm_resource_group.prod.location}"
+  resource_group_name = "${azurerm_resource_group.prod.name}"
 
   security_rule {  -- rules
     name                       = "allow_frontend"

@@ -23,6 +23,10 @@ variable "admin_password" {
   type  ="string"
   description = "Password for SQL"  
 }
+variable "azure_principal_password" {
+  type = "string"
+  description = "Principal Password"
+}
 
 variable "location" {
   type        = "string"
