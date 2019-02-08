@@ -64,3 +64,13 @@ resource "azurerm_network_security_group" "frontend" {
     destination_address_prefix = "*"
   }
 }
+
+resource "azurerm_subnet_network_security_group_association" "sql_ngo" {
+  network_security_group_id = "${azurerm_network_security_group.db.id}"
+  subnet_id                 = "${azurerm_subnet.dbsubnet.id}"
+}
+
+resource "azurerm_subnet_network_security_group_association" "backendsubnet_ngo" {
+  network_security_group_id = "${azurerm_network_security_group.backend.id}"
+  subnet_id                 = "${azurerm_subnet.backendsubnet.id}"
+}

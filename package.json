@@ -4,6 +4,9 @@
       "create": "terraform workspace new env1 && terraform worokspace new env2",
       "apply:env1" : "terraform workspace select env1 && terraform apply -var-file=secret\\env1.tfvars -var-file=terraform.tfvars -auto-approve",
       "apply:env2" : "terraform workspace select env2 && terraform apply -var-file=secret\\env2.tfvars -var-file=terraform.tfvars -auto-approve",
-      "apply:all" : "npm run apply:env1 && npm run apply:env2"
+      "apply:all" : "npm run apply:env1 && npm run apply:env2",
+      "destroy:env1" : "terraform workspace select env1 && terraform destroy -var-file=secret\\env1.tfvars -var-file=terraform.tfvars -auto-approve",
+      "destroy:env2" : "terraform workspace select env2 && terraform destroy -var-file=secret\\env2.tfvars -var-file=terraform.tfvars -auto-approve",
+      "destroy:all" : "npm run destroy:env1 && npm run destroy:env2"
     }
   }

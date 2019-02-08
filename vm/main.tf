@@ -33,19 +33,31 @@ resource "azurerm_virtual_machine" "prod" {
 
   os_profile {
     computer_name  = "${var.resource_group_name}-vm"
-    admin_username = "${var.resource_group_name}"
-    admin_password = "Password1234!"
+    admin_username = "${var.admin_username}"
+    admin_password = "${var.admin_password}"
   }
 
-  os_profile_windows_config {}
+  identity {
+    type         = "UserAssigned"
+    identity_ids = ["${var.service_principal_id}"]
+  }
+
+  os_profile_windows_config {
+    provision_vm_agent        = true
+    enable_automatic_upgrades = true
+
+    # Auto-Login's required to configure WinRM
+    additional_unattend_config {
+      pass         = "oobeSystem"
+      component    = "Microsoft-Windows-Shell-Setup"
+      setting_name = "AutoLogon"
+      content      = "<AutoLogon><Password><Value>${var.admin_password}</Value></Password><Enabled>true</Enabled><LogonCount>1</LogonCount><Username>${var.admin_username}</Username></AutoLogon>"
+    }
+  }
 
   tags {
     environment = "staging"
   }
 }
-resource "azurerm_role_assignment" "vm" {
-  scope                = "${azurerm_virtual_machine.prod.id}"
-  role_definition_name = "Owner"
-  principal_id         = "${var.service_principal_id}"
-}
+
 

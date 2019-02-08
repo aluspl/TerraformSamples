@@ -17,7 +17,10 @@ resource "azurerm_subnet" "backendsubnet" {
   address_prefix            = "${var.subnet_backend_prefix}"
 }
 
-resource "azurerm_subnet_network_security_group_association" "backendsubnet_ngo" {
-  network_security_group_id = "${azurerm_network_security_group.backend.id}"
-  subnet_id                 = "${azurerm_subnet.backendsubnet.id}"
+resource "azurerm_subnet" "dbsubnet" {
+  name                 = "SQL"
+  resource_group_name  = "${azurerm_resource_group.prod.name}"
+  virtual_network_name  = "${azurerm_virtual_network.prod.name}"
+  address_prefix       = "${var.subnet_db_prefix}"
+  service_endpoints    = ["Microsoft.Sql"]
 }

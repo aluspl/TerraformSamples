@@ -8,11 +8,6 @@ variable "resource_group_name" {
   description = "Name of your resource group"
 }
 
-variable "virtual_network_name" {
-  type        = "string"
-  description = "Network name"
-}
-
 variable "admin_password" {
   type        = "string"
   description = "Network name"
@@ -24,15 +19,6 @@ variable "admin_username" {
   default     = "uberuser"
 }
 
-variable "group_policy_name" {
-  type        = "string"
-  description = "group policy"
-}
-
-variable "ip" {
-  type        = "string"
-  description = "SQL IP Address"
-}
 variable "service_principal_id" {
   type  ="string"
   description ="princiapl id"
