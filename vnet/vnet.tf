@@ -1,5 +1,5 @@
 resource "azurerm_virtual_network" "prod" {
-  name                = "${var.resource_group_name}_vnet_${terraform.workspace}"
+  name                = "${var.resource_group_name}_vnet"
   location            = "${var.location}"
   address_space       = ["${var.address_spaces}"]
   resource_group_name = "${var.resource_group_name}"

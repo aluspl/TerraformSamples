@@ -24,3 +24,7 @@ variable "service_principal_id" {
   description ="princiapl id"
 }
 
+variable "dbsubnet_id" {
+   type  ="string"
+  description ="princiapl id"
+}

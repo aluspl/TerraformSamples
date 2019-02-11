@@ -2,11 +2,15 @@
     { "init" : "terraform init --backend-config=secret\\backend.tfvars --reconfigure",
       "runMain" : "terraform init",
       "create": "terraform workspace new env1 && terraform worokspace new env2",
-      "apply:env1" : "terraform workspace select env1 && terraform apply -var-file=secret\\env1.tfvars  -auto-approve",
-      "apply:env2" : "terraform workspace select env2 && terraform apply   -auto-approve",
+      "apply:env1" : "terraform refresh && terraform workspace select env1 && terraform apply -var-file=secret\\env1.tfvars  -auto-approve",
+      "apply:env2" : "terraform refresh && terraform workspace select env2 && terraform apply   -auto-approve",
+      "apply:env3" : "terraform refresh && terraform workspace select env3 && terraform apply   -auto-approve",
+
       "apply:all" : "npm run apply:env1 && npm run apply:env2",
       "destroy:env1" : "terraform workspace select env1 && terraform destroy -var-file=secret\\env1.tfvars -auto-approve",
       "destroy:env2" : "terraform workspace select env2 && terraform destroy -auto-approve",
+      "destroy:env3" : "terraform workspace select env3 && terraform destroy -auto-approve",
+
       "destroy:all" : "npm run destroy:env1 && npm run destroy:env2"
     }
   }

@@ -17,15 +17,21 @@ variable "azure_subscription_id" {
 variable "resource_group_name" {
   type        = "string"
   description = "Name of your resource group"
-  default = "smotyka"
+  default     = "smotyka"
 }
+
 variable "admin_password" {
-  type  ="string"
-  description = "Password for SQL"  
+  type        = "string"
+  description = "Password for SQL"
 }
+
 variable "azure_principal_password" {
-  type = "string"
+  type        = "string"
   description = "Principal Password"
+}
+
+variable "my_object_id" {
+  type = "string"
 }
 
 variable "location" {

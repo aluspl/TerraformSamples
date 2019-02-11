@@ -52,3 +52,9 @@ resource "azurerm_role_assignment" "sqlelasticpool" {
   role_definition_name = "Owner"
   principal_id         = "${var.service_principal_id}"
 }
+resource "azurerm_sql_virtual_network_rule" "sqlvnetrule" {
+  name                = "sql-vnet-rule"
+  resource_group_name = "${var.resource_group_name}"
+  server_name         = "${azurerm_sql_server.prod.name}"
+  subnet_id           = "${var.dbsubnet_id}"
+}

@@ -3,13 +3,14 @@ resource "azurerm_resource_group" "prod" {
   location = "${var.location}"
 }
 
-# module "db" {
-#   source               = "./db"
-#   resource_group_name  = "${azurerm_resource_group.prod.name}"
-#   location             = "${azurerm_resource_group.prod.location}"
-#   service_principal_id = "${azurerm_user_assigned_identity.prod.principal_id }"
-#   admin_password       = "${var.admin_password}"
-# }
+module "vault" {
+  source                      = "./vault"
+  resource_group_name         = "backupresource"
+  location                    = "${azurerm_resource_group.prod.location}"
+  service_principal_object_id = "${azuread_service_principal.prod.id }"
+  my_object_id                = "${var.my_object_id }"
+  azure_tenant_id             = "${var.azure_tenant_id}"
+}
 
 module "vnet" {
   source                 = "./vnet"
@@ -26,7 +27,16 @@ module "vm" {
   location             = "${azurerm_resource_group.prod.location}"
   virtual_network_name = "${module.vnet.virtual_network_name}"
   backend_subnet_id    = "${module.vnet.backend_subnet_id}"
-  service_principal_id = "${azurerm_user_assigned_identity.prod.id }"
+  service_principal_id = "${azurerm_user_assigned_identity.prod.id}"
   ip                   = "${var.subnet_backend_prefix}"
-  admin_password       = "${var.admin_password}"
+  admin_password       = "${module.vault.admin_password}"
+}
+
+module "db" {
+  source               = "./db"
+  resource_group_name  = "${azurerm_resource_group.prod.name}"
+  location             = "${azurerm_resource_group.prod.location}"
+  service_principal_id = "${azurerm_user_assigned_identity.prod.principal_id }"
+  admin_password       = "${module.vault.admin_password}"
+  dbsubnet_id          = "${module.vnet.db_subnet_id}"
 }

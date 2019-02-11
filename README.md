@@ -8,6 +8,10 @@
 | NSG                     |     OK | main => subnet nsg                 |
 | Storage Terraform State |     OK | AzureBlob                          |
 | Best Practices          |     OK | Secrets, Variables, Default Values |
+| Modules                 |     OK | MOdules, variables,                |
+| Backend                 |     OK | package.json and provider          |
+| VM                      |     OK | VM module                          |
+| DB                      |     OK | DB Module                          |
 
 # Notes 
 
@@ -118,7 +122,10 @@ To using Azure Storage Blog to keeping tfstate init:
 ```
 terraform init -backend-config="secret\backend.tfvars" -reconfigure
 ```
-
+using secrets in apply
+```
+terraform apply -var-file=secret\\env1.tfvars
+```
 # Workspace
 ```
 terraform workspace new {workspace name} -- create new workspace

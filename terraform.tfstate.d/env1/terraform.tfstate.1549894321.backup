@@ -1,0 +1,744 @@
+{
+    "version": 3,
+    "terraform_version": "0.11.11",
+    "serial": 52,
+    "lineage": "01c20188-abd5-3446-2ad1-bd45f2b1094f",
+    "modules": [
+        {
+            "path": [
+                "root"
+            ],
+            "outputs": {},
+            "resources": {
+                "azuread_application.prod": {
+                    "type": "azuread_application",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "6fcc4ecf-b015-4fc7-bcfa-e2fed2a2be92",
+                        "attributes": {
+                            "application_id": "f2b2e508-4502-463c-8b21-a1f42e1d2c4c",
+                            "available_to_other_tenants": "false",
+                            "homepage": "https://smotyka-env1",
+                            "id": "6fcc4ecf-b015-4fc7-bcfa-e2fed2a2be92",
+                            "identifier_uris.#": "1",
+                            "identifier_uris.0": "https://smotyka-env1",
+                            "name": "smotyka-env1",
+                            "oauth2_allow_implicit_flow": "true",
+                            "reply_urls.#": "1",
+                            "reply_urls.0": "https://smotyka-env1"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azuread"
+                },
+                "azuread_service_principal.prod": {
+                    "type": "azuread_service_principal",
+                    "depends_on": [
+                        "azuread_application.prod"
+                    ],
+                    "primary": {
+                        "id": "fd7cf4ce-244a-4dbc-8195-5233ed73968c",
+                        "attributes": {
+                            "application_id": "f2b2e508-4502-463c-8b21-a1f42e1d2c4c",
+                            "display_name": "smotyka-env1",
+                            "id": "fd7cf4ce-244a-4dbc-8195-5233ed73968c"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azuread"
+                },
+                "azuread_service_principal_password.prod": {
+                    "type": "azuread_service_principal_password",
+                    "depends_on": [
+                        "azuread_service_principal.prod"
+                    ],
+                    "primary": {
+                        "id": "fd7cf4ce-244a-4dbc-8195-5233ed73968c/f15332af-89d0-eeef-b9d3-fd3ac2f680b6",
+                        "attributes": {
+                            "end_date": "2020-01-01T01:02:03Z",
+                            "id": "fd7cf4ce-244a-4dbc-8195-5233ed73968c/f15332af-89d0-eeef-b9d3-fd3ac2f680b6",
+                            "key_id": "f15332af-89d0-eeef-b9d3-fd3ac2f680b6",
+                            "service_principal_id": "fd7cf4ce-244a-4dbc-8195-5233ed73968c",
+                            "start_date": "2019-02-11T14:04:47Z",
+                            "value": "VT=uSgbTanZhyz@%nL9Hpd+Tfay_MRV#"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azuread"
+                },
+                "azurerm_resource_group.prod": {
+                    "type": "azurerm_resource_group",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1",
+                        "attributes": {
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1",
+                            "location": "westeurope",
+                            "name": "smotyka-env1",
+                            "tags.%": "0"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_user_assigned_identity.prod": {
+                    "type": "azurerm_user_assigned_identity",
+                    "depends_on": [
+                        "azurerm_resource_group.prod"
+                    ],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourcegroups/smotyka-env1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/adminuser-env1",
+                        "attributes": {
+                            "client_id": "6cb8c5f6-fce6-471d-b47f-3ea4a873fad0",
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourcegroups/smotyka-env1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/adminuser-env1",
+                            "location": "westeurope",
+                            "name": "adminuser-env1",
+                            "principal_id": "b6c919cf-a965-4441-b2c0-87dd641a9685",
+                            "resource_group_name": "smotyka-env1",
+                            "tags.%": "0"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                }
+            },
+            "depends_on": []
+        },
+        {
+            "path": [
+                "root",
+                "vault"
+            ],
+            "outputs": {
+                "admin_password": {
+                    "sensitive": false,
+                    "type": "string",
+                    "value": "2bc2e2b38489fb5aaA1!"
+                }
+            },
+            "resources": {
+                "azurerm_key_vault.prod": {
+                    "type": "azurerm_key_vault",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/backupresource/providers/Microsoft.KeyVault/vaults/vm-vault-backupresource",
+                        "attributes": {
+                            "access_policy.#": "0",
+                            "enabled_for_deployment": "false",
+                            "enabled_for_disk_encryption": "true",
+                            "enabled_for_template_deployment": "false",
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/backupresource/providers/Microsoft.KeyVault/vaults/vm-vault-backupresource",
+                            "location": "westeurope",
+                            "name": "vm-vault-backupresource",
+                            "network_acls.#": "0",
+                            "resource_group_name": "backupresource",
+                            "sku.#": "1",
+                            "sku.0.name": "standard",
+                            "tags.%": "0",
+                            "tenant_id": "b3e5a293-6975-4239-9637-c963e8d90b7a",
+                            "vault_uri": "https://vm-vault-backupresource.vault.azure.net/"
+                        },
+                        "meta": {
+                            "schema_version": "1"
+                        },
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_key_vault_access_policy.child": {
+                    "type": "azurerm_key_vault_access_policy",
+                    "depends_on": [
+                        "azurerm_key_vault.prod"
+                    ],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/backupresource/providers/Microsoft.KeyVault/vaults/vm-vault-backupresource/objectId/fd7cf4ce-244a-4dbc-8195-5233ed73968c",
+                        "attributes": {
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/backupresource/providers/Microsoft.KeyVault/vaults/vm-vault-backupresource/objectId/fd7cf4ce-244a-4dbc-8195-5233ed73968c",
+                            "key_permissions.#": "2",
+                            "key_permissions.0": "create",
+                            "key_permissions.1": "get",
+                            "object_id": "fd7cf4ce-244a-4dbc-8195-5233ed73968c",
+                            "resource_group_name": "backupresource",
+                            "secret_permissions.#": "4",
+                            "secret_permissions.0": "get",
+                            "secret_permissions.1": "list",
+                            "secret_permissions.2": "set",
+                            "secret_permissions.3": "delete",
+                            "tenant_id": "b3e5a293-6975-4239-9637-c963e8d90b7a",
+                            "vault_name": "vm-vault-backupresource"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_key_vault_access_policy.main": {
+                    "type": "azurerm_key_vault_access_policy",
+                    "depends_on": [
+                        "azurerm_key_vault.prod"
+                    ],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/backupresource/providers/Microsoft.KeyVault/vaults/vm-vault-backupresource/objectId/b5455a07-5db0-48da-93d3-83720b2580bd",
+                        "attributes": {
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/backupresource/providers/Microsoft.KeyVault/vaults/vm-vault-backupresource/objectId/b5455a07-5db0-48da-93d3-83720b2580bd",
+                            "key_permissions.#": "2",
+                            "key_permissions.0": "create",
+                            "key_permissions.1": "get",
+                            "object_id": "b5455a07-5db0-48da-93d3-83720b2580bd",
+                            "resource_group_name": "backupresource",
+                            "secret_permissions.#": "4",
+                            "secret_permissions.0": "get",
+                            "secret_permissions.1": "list",
+                            "secret_permissions.2": "set",
+                            "secret_permissions.3": "delete",
+                            "tenant_id": "b3e5a293-6975-4239-9637-c963e8d90b7a",
+                            "vault_name": "vm-vault-backupresource"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_key_vault_access_policy.prod": {
+                    "type": "azurerm_key_vault_access_policy",
+                    "depends_on": [
+                        "azurerm_key_vault.prod"
+                    ],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/backupresource/providers/Microsoft.KeyVault/vaults/vm-vault-backupresource/objectId/cfb259ef-7d06-4f89-af69-0dd53d67f0b9",
+                        "attributes": {
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/backupresource/providers/Microsoft.KeyVault/vaults/vm-vault-backupresource/objectId/cfb259ef-7d06-4f89-af69-0dd53d67f0b9",
+                            "key_permissions.#": "2",
+                            "key_permissions.0": "create",
+                            "key_permissions.1": "get",
+                            "object_id": "cfb259ef-7d06-4f89-af69-0dd53d67f0b9",
+                            "resource_group_name": "backupresource",
+                            "secret_permissions.#": "4",
+                            "secret_permissions.0": "get",
+                            "secret_permissions.1": "list",
+                            "secret_permissions.2": "set",
+                            "secret_permissions.3": "delete",
+                            "tenant_id": "b3e5a293-6975-4239-9637-c963e8d90b7a",
+                            "vault_name": "vm-vault-backupresource"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_key_vault_secret.prod": {
+                    "type": "azurerm_key_vault_secret",
+                    "depends_on": [
+                        "azurerm_key_vault.prod",
+                        "random_id.server"
+                    ],
+                    "primary": {
+                        "id": "https://vm-vault-backupresource.vault.azure.net/secrets/env1-vm-secret/766e6e42ff0844d6896382e87e57ee85",
+                        "attributes": {
+                            "content_type": "",
+                            "id": "https://vm-vault-backupresource.vault.azure.net/secrets/env1-vm-secret/766e6e42ff0844d6896382e87e57ee85",
+                            "name": "env1-vm-secret",
+                            "tags.%": "0",
+                            "value": "2bc2e2b38489fb5aaA1!",
+                            "vault_uri": "https://vm-vault-backupresource.vault.azure.net/",
+                            "version": "766e6e42ff0844d6896382e87e57ee85"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "random_id.server": {
+                    "type": "random_id",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "K8Lis4SJ-1o",
+                        "attributes": {
+                            "b64": "K8Lis4SJ-1o",
+                            "b64_std": "K8Lis4SJ+1o=",
+                            "b64_url": "K8Lis4SJ-1o",
+                            "byte_length": "8",
+                            "dec": "3153331949763427162",
+                            "hex": "2bc2e2b38489fb5a",
+                            "id": "K8Lis4SJ-1o",
+                            "keepers.%": "1",
+                            "keepers.ami_id": "2"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.random"
+                }
+            },
+            "depends_on": []
+        },
+        {
+            "path": [
+                "root",
+                "vm"
+            ],
+            "outputs": {
+                "virtual_machine_id": {
+                    "sensitive": false,
+                    "type": "string",
+                    "value": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Compute/virtualMachines/smotyka-env1-vm"
+                }
+            },
+            "resources": {
+                "azurerm_network_interface.prod": {
+                    "type": "azurerm_network_interface",
+                    "depends_on": [
+                        "azurerm_public_ip.main"
+                    ],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/networkInterfaces/smotyka-env1-nic",
+                        "attributes": {
+                            "applied_dns_servers.#": "0",
+                            "dns_servers.#": "0",
+                            "enable_accelerated_networking": "false",
+                            "enable_ip_forwarding": "false",
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/networkInterfaces/smotyka-env1-nic",
+                            "internal_dns_name_label": "",
+                            "internal_fqdn": "",
+                            "ip_configuration.#": "1",
+                            "ip_configuration.0.application_gateway_backend_address_pools_ids.#": "0",
+                            "ip_configuration.0.application_security_group_ids.#": "0",
+                            "ip_configuration.0.load_balancer_backend_address_pools_ids.#": "0",
+                            "ip_configuration.0.load_balancer_inbound_nat_rules_ids.#": "0",
+                            "ip_configuration.0.name": "testconfiguration1",
+                            "ip_configuration.0.primary": "true",
+                            "ip_configuration.0.private_ip_address": "",
+                            "ip_configuration.0.private_ip_address_allocation": "dynamic",
+                            "ip_configuration.0.private_ip_address_version": "IPv4",
+                            "ip_configuration.0.public_ip_address_id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/publicIPAddresses/smotyka-env1-vm-publicIP",
+                            "ip_configuration.0.subnet_id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/backendsubnet",
+                            "location": "westeurope",
+                            "mac_address": "",
+                            "name": "smotyka-env1-nic",
+                            "network_security_group_id": "",
+                            "private_ip_address": "10.0.2.4",
+                            "private_ip_addresses.#": "1",
+                            "private_ip_addresses.0": "10.0.2.4",
+                            "resource_group_name": "smotyka-env1",
+                            "tags.%": "0"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_public_ip.main": {
+                    "type": "azurerm_public_ip",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/publicIPAddresses/smotyka-env1-vm-publicIP",
+                        "attributes": {
+                            "allocation_method": "Dynamic",
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/publicIPAddresses/smotyka-env1-vm-publicIP",
+                            "idle_timeout_in_minutes": "4",
+                            "ip_address": "",
+                            "ip_version": "IPv4",
+                            "location": "westeurope",
+                            "name": "smotyka-env1-vm-publicIP",
+                            "public_ip_address_allocation": "Dynamic",
+                            "resource_group_name": "smotyka-env1",
+                            "sku": "Basic",
+                            "tags.%": "0",
+                            "zones.#": "0"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_virtual_machine.prod": {
+                    "type": "azurerm_virtual_machine",
+                    "depends_on": [
+                        "azurerm_network_interface.prod"
+                    ],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Compute/virtualMachines/smotyka-env1-vm",
+                        "attributes": {
+                            "delete_data_disks_on_termination": "false",
+                            "delete_os_disk_on_termination": "false",
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Compute/virtualMachines/smotyka-env1-vm",
+                            "identity.#": "1",
+                            "identity.0.identity_ids.#": "1",
+                            "identity.0.identity_ids.0": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourcegroups/smotyka-env1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/adminuser-env1",
+                            "identity.0.principal_id": "",
+                            "identity.0.type": "UserAssigned",
+                            "location": "westeurope",
+                            "name": "smotyka-env1-vm",
+                            "network_interface_ids.#": "1",
+                            "network_interface_ids.0": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/networkInterfaces/smotyka-env1-nic",
+                            "os_profile.#": "1",
+                            "os_profile.4162926900.admin_password": "",
+                            "os_profile.4162926900.admin_username": "testadmin",
+                            "os_profile.4162926900.computer_name": "smotyka-env1-vm",
+                            "os_profile.4162926900.custom_data": "",
+                            "os_profile_linux_config.#": "0",
+                            "os_profile_secrets.#": "0",
+                            "os_profile_windows_config.#": "1",
+                            "os_profile_windows_config.1060902566.additional_unattend_config.#": "1",
+                            "os_profile_windows_config.1060902566.additional_unattend_config.0.component": "Microsoft-Windows-Shell-Setup",
+                            "os_profile_windows_config.1060902566.additional_unattend_config.0.content": "",
+                            "os_profile_windows_config.1060902566.additional_unattend_config.0.pass": "oobeSystem",
+                            "os_profile_windows_config.1060902566.additional_unattend_config.0.setting_name": "AutoLogon",
+                            "os_profile_windows_config.1060902566.enable_automatic_upgrades": "true",
+                            "os_profile_windows_config.1060902566.provision_vm_agent": "true",
+                            "os_profile_windows_config.1060902566.timezone": "",
+                            "os_profile_windows_config.1060902566.winrm.#": "0",
+                            "plan.#": "0",
+                            "resource_group_name": "smotyka-env1",
+                            "storage_data_disk.#": "0",
+                            "storage_image_reference.#": "1",
+                            "storage_image_reference.771589717.id": "",
+                            "storage_image_reference.771589717.offer": "WindowsServer",
+                            "storage_image_reference.771589717.publisher": "MicrosoftWindowsServer",
+                            "storage_image_reference.771589717.sku": "2016-Datacenter-Server-Core-smalldisk",
+                            "storage_image_reference.771589717.version": "latest",
+                            "storage_os_disk.#": "1",
+                            "storage_os_disk.0.caching": "ReadWrite",
+                            "storage_os_disk.0.create_option": "FromImage",
+                            "storage_os_disk.0.disk_size_gb": "30",
+                            "storage_os_disk.0.image_uri": "",
+                            "storage_os_disk.0.managed_disk_id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Compute/disks/myosdisk1",
+                            "storage_os_disk.0.managed_disk_type": "Standard_LRS",
+                            "storage_os_disk.0.name": "myosdisk1",
+                            "storage_os_disk.0.os_type": "Windows",
+                            "storage_os_disk.0.vhd_uri": "",
+                            "storage_os_disk.0.write_accelerator_enabled": "false",
+                            "tags.%": "1",
+                            "tags.environment": "staging",
+                            "vm_size": "Standard_B2s",
+                            "zones.#": "0"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                }
+            },
+            "depends_on": []
+        },
+        {
+            "path": [
+                "root",
+                "vnet"
+            ],
+            "outputs": {
+                "backend_subnet_id": {
+                    "sensitive": false,
+                    "type": "string",
+                    "value": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/backendsubnet"
+                },
+                "db_subnet_id": {
+                    "sensitive": false,
+                    "type": "string",
+                    "value": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/dbsubnet"
+                },
+                "virtual_network_name": {
+                    "sensitive": false,
+                    "type": "string",
+                    "value": "smotyka-env1_vnet"
+                }
+            },
+            "resources": {
+                "azurerm_network_security_group.backend": {
+                    "type": "azurerm_network_security_group",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/networkSecurityGroups/backend",
+                        "attributes": {
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/networkSecurityGroups/backend",
+                            "location": "westeurope",
+                            "name": "backend",
+                            "resource_group_name": "smotyka-env1",
+                            "security_rule.#": "3",
+                            "security_rule.3902090653.access": "Allow",
+                            "security_rule.3902090653.description": "",
+                            "security_rule.3902090653.destination_address_prefix": "*",
+                            "security_rule.3902090653.destination_address_prefixes.#": "0",
+                            "security_rule.3902090653.destination_application_security_group_ids.#": "0",
+                            "security_rule.3902090653.destination_port_range": "3389",
+                            "security_rule.3902090653.destination_port_ranges.#": "0",
+                            "security_rule.3902090653.direction": "Inbound",
+                            "security_rule.3902090653.name": "rdp_in",
+                            "security_rule.3902090653.priority": "300",
+                            "security_rule.3902090653.protocol": "Tcp",
+                            "security_rule.3902090653.source_address_prefix": "*",
+                            "security_rule.3902090653.source_address_prefixes.#": "0",
+                            "security_rule.3902090653.source_application_security_group_ids.#": "0",
+                            "security_rule.3902090653.source_port_range": "*",
+                            "security_rule.3902090653.source_port_ranges.#": "0",
+                            "security_rule.4122052951.access": "Allow",
+                            "security_rule.4122052951.description": "",
+                            "security_rule.4122052951.destination_address_prefix": "*",
+                            "security_rule.4122052951.destination_address_prefixes.#": "0",
+                            "security_rule.4122052951.destination_application_security_group_ids.#": "0",
+                            "security_rule.4122052951.destination_port_range": "*",
+                            "security_rule.4122052951.destination_port_ranges.#": "0",
+                            "security_rule.4122052951.direction": "Inbound",
+                            "security_rule.4122052951.name": "allow_frontend",
+                            "security_rule.4122052951.priority": "101",
+                            "security_rule.4122052951.protocol": "Tcp",
+                            "security_rule.4122052951.source_address_prefix": "10.0.1.0/24",
+                            "security_rule.4122052951.source_address_prefixes.#": "0",
+                            "security_rule.4122052951.source_application_security_group_ids.#": "0",
+                            "security_rule.4122052951.source_port_range": "*",
+                            "security_rule.4122052951.source_port_ranges.#": "0",
+                            "security_rule.420040554.access": "Allow",
+                            "security_rule.420040554.description": "",
+                            "security_rule.420040554.destination_address_prefix": "*",
+                            "security_rule.420040554.destination_address_prefixes.#": "0",
+                            "security_rule.420040554.destination_application_security_group_ids.#": "0",
+                            "security_rule.420040554.destination_port_range": "3389",
+                            "security_rule.420040554.destination_port_ranges.#": "0",
+                            "security_rule.420040554.direction": "Outbound",
+                            "security_rule.420040554.name": "rdp_out",
+                            "security_rule.420040554.priority": "300",
+                            "security_rule.420040554.protocol": "Tcp",
+                            "security_rule.420040554.source_address_prefix": "*",
+                            "security_rule.420040554.source_address_prefixes.#": "0",
+                            "security_rule.420040554.source_application_security_group_ids.#": "0",
+                            "security_rule.420040554.source_port_range": "*",
+                            "security_rule.420040554.source_port_ranges.#": "0",
+                            "tags.%": "0"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_network_security_group.db": {
+                    "type": "azurerm_network_security_group",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/networkSecurityGroups/db",
+                        "attributes": {
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/networkSecurityGroups/db",
+                            "location": "westeurope",
+                            "name": "db",
+                            "resource_group_name": "smotyka-env1",
+                            "security_rule.#": "2",
+                            "security_rule.3571019977.access": "Deny",
+                            "security_rule.3571019977.description": "",
+                            "security_rule.3571019977.destination_address_prefix": "Internet",
+                            "security_rule.3571019977.destination_address_prefixes.#": "0",
+                            "security_rule.3571019977.destination_application_security_group_ids.#": "0",
+                            "security_rule.3571019977.destination_port_range": "*",
+                            "security_rule.3571019977.destination_port_ranges.#": "0",
+                            "security_rule.3571019977.direction": "Outbound",
+                            "security_rule.3571019977.name": "disable_internet",
+                            "security_rule.3571019977.priority": "101",
+                            "security_rule.3571019977.protocol": "*",
+                            "security_rule.3571019977.source_address_prefix": "*",
+                            "security_rule.3571019977.source_address_prefixes.#": "0",
+                            "security_rule.3571019977.source_application_security_group_ids.#": "0",
+                            "security_rule.3571019977.source_port_range": "*",
+                            "security_rule.3571019977.source_port_ranges.#": "0",
+                            "security_rule.696023199.access": "Allow",
+                            "security_rule.696023199.description": "",
+                            "security_rule.696023199.destination_address_prefix": "10.0.2.0/24",
+                            "security_rule.696023199.destination_address_prefixes.#": "0",
+                            "security_rule.696023199.destination_application_security_group_ids.#": "0",
+                            "security_rule.696023199.destination_port_range": "*",
+                            "security_rule.696023199.destination_port_ranges.#": "0",
+                            "security_rule.696023199.direction": "Inbound",
+                            "security_rule.696023199.name": "allow_backend",
+                            "security_rule.696023199.priority": "101",
+                            "security_rule.696023199.protocol": "Tcp",
+                            "security_rule.696023199.source_address_prefix": "*",
+                            "security_rule.696023199.source_address_prefixes.#": "0",
+                            "security_rule.696023199.source_application_security_group_ids.#": "0",
+                            "security_rule.696023199.source_port_range": "*",
+                            "security_rule.696023199.source_port_ranges.#": "0",
+                            "tags.%": "0"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_network_security_group.frontend": {
+                    "type": "azurerm_network_security_group",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/networkSecurityGroups/frontend",
+                        "attributes": {
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/networkSecurityGroups/frontend",
+                            "location": "westeurope",
+                            "name": "frontend",
+                            "resource_group_name": "smotyka-env1",
+                            "security_rule.#": "1",
+                            "security_rule.3684187885.access": "Allow",
+                            "security_rule.3684187885.description": "",
+                            "security_rule.3684187885.destination_address_prefix": "*",
+                            "security_rule.3684187885.destination_address_prefixes.#": "0",
+                            "security_rule.3684187885.destination_application_security_group_ids.#": "0",
+                            "security_rule.3684187885.destination_port_range": "",
+                            "security_rule.3684187885.destination_port_ranges.#": "2",
+                            "security_rule.3684187885.destination_port_ranges.3308380389": "50",
+                            "security_rule.3684187885.destination_port_ranges.3638101695": "443",
+                            "security_rule.3684187885.direction": "Inbound",
+                            "security_rule.3684187885.name": "internet",
+                            "security_rule.3684187885.priority": "102",
+                            "security_rule.3684187885.protocol": "Tcp",
+                            "security_rule.3684187885.source_address_prefix": "*",
+                            "security_rule.3684187885.source_address_prefixes.#": "0",
+                            "security_rule.3684187885.source_application_security_group_ids.#": "0",
+                            "security_rule.3684187885.source_port_range": "*",
+                            "security_rule.3684187885.source_port_ranges.#": "0",
+                            "tags.%": "0"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_subnet.backendsubnet": {
+                    "type": "azurerm_subnet",
+                    "depends_on": [
+                        "azurerm_virtual_network.prod"
+                    ],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/backendsubnet",
+                        "attributes": {
+                            "address_prefix": "10.0.2.0/24",
+                            "delegation.#": "0",
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/backendsubnet",
+                            "ip_configurations.#": "0",
+                            "name": "backendsubnet",
+                            "network_security_group_id": "",
+                            "resource_group_name": "smotyka-env1",
+                            "route_table_id": "",
+                            "service_endpoints.#": "0",
+                            "virtual_network_name": "smotyka-env1_vnet"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_subnet.dbsubnet": {
+                    "type": "azurerm_subnet",
+                    "depends_on": [
+                        "azurerm_virtual_network.prod"
+                    ],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/dbsubnet",
+                        "attributes": {
+                            "address_prefix": "10.0.3.0/24",
+                            "delegation.#": "0",
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/dbsubnet",
+                            "ip_configurations.#": "0",
+                            "name": "dbsubnet",
+                            "network_security_group_id": "",
+                            "resource_group_name": "smotyka-env1",
+                            "route_table_id": "",
+                            "service_endpoints.#": "1",
+                            "service_endpoints.0": "Microsoft.Sql",
+                            "virtual_network_name": "smotyka-env1_vnet"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_subnet_network_security_group_association.backendsubnet_ngo": {
+                    "type": "azurerm_subnet_network_security_group_association",
+                    "depends_on": [
+                        "azurerm_network_security_group.backend",
+                        "azurerm_subnet.backendsubnet"
+                    ],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/backendsubnet",
+                        "attributes": {
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/backendsubnet",
+                            "network_security_group_id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/networkSecurityGroups/backend",
+                            "subnet_id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/backendsubnet"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_subnet_network_security_group_association.sql_ngo": {
+                    "type": "azurerm_subnet_network_security_group_association",
+                    "depends_on": [
+                        "azurerm_network_security_group.db",
+                        "azurerm_subnet.dbsubnet"
+                    ],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/dbsubnet",
+                        "attributes": {
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/dbsubnet",
+                            "network_security_group_id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/networkSecurityGroups/db",
+                            "subnet_id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/dbsubnet"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                },
+                "azurerm_virtual_network.prod": {
+                    "type": "azurerm_virtual_network",
+                    "depends_on": [
+                        "azurerm_network_security_group.frontend"
+                    ],
+                    "primary": {
+                        "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet",
+                        "attributes": {
+                            "address_space.#": "1",
+                            "address_space.0": "10.0.0.0/16",
+                            "dns_servers.#": "2",
+                            "dns_servers.0": "10.0.0.4",
+                            "dns_servers.1": "10.0.0.5",
+                            "id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet",
+                            "location": "westeurope",
+                            "name": "smotyka-env1_vnet",
+                            "resource_group_name": "smotyka-env1",
+                            "subnet.#": "1",
+                            "subnet.2932477085.address_prefix": "10.0.1.0/24",
+                            "subnet.2932477085.id": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/virtualNetworks/smotyka-env1_vnet/subnets/frontendsubnet",
+                            "subnet.2932477085.name": "frontendsubnet",
+                            "subnet.2932477085.security_group": "/subscriptions/6cdbda82-9a3c-4ce7-b45d-c56734266a27/resourceGroups/smotyka-env1/providers/Microsoft.Network/networkSecurityGroups/frontend",
+                            "tags.%": "0"
+                        },
+                        "meta": {},
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.azurerm"
+                }
+            },
+            "depends_on": []
+        }
+    ]
+}
