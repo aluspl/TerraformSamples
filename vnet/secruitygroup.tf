@@ -1,9 +1,8 @@
 
 resource "azurerm_network_security_group" "db" {
   name                = "db"
-  location            = "${azurerm_resource_group.prod.location}"
-  resource_group_name = "${azurerm_resource_group.prod.name}"
-
+   location            = "${var.location}"
+  resource_group_name = "${var.resource_group_name}"
    security_rule {
     name                       = "allow_backend"
     priority                   = 101
@@ -31,8 +30,8 @@ resource "azurerm_network_security_group" "db" {
 
 resource "azurerm_network_security_group" "backend" {
   name                = "backend"
-  location            = "${azurerm_resource_group.prod.location}"
-  resource_group_name = "${azurerm_resource_group.prod.name}"
+  location            = "${var.location}"
+  resource_group_name = "${var.resource_group_name}"
 
   security_rule {
     name                       = "allow_frontend"
@@ -45,12 +44,34 @@ resource "azurerm_network_security_group" "backend" {
     source_address_prefix      = "${var.subnet_frontend_prefix}"
     destination_address_prefix = "*"
   }
+  security_rule {
+    name                       = "rdp_in"
+    priority                   = 300
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "3389"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+   security_rule {
+    name                       = "rdp_out"
+    priority                   = 300
+    direction                  = "Outbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "3389"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
 }
 
 resource "azurerm_network_security_group" "frontend" {
   name                = "frontend"
-  location            = "${azurerm_resource_group.prod.location}"
-  resource_group_name = "${azurerm_resource_group.prod.name}"
+  location            = "${var.location}"
+  resource_group_name = "${var.resource_group_name}"
 
   security_rule {
     name                       = "internet"

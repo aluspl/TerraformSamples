@@ -3,20 +3,29 @@ resource "azurerm_resource_group" "prod" {
   location = "${var.location}"
 }
 
-module "db"  {
-  source               = "./db"
-  resource_group_name  = "${azurerm_resource_group.prod.name}"
-  location             = "${azurerm_resource_group.prod.location}"
-  service_principal_id = "${azurerm_user_assigned_identity.prod.principal_id }"
-  admin_password       = "${var.admin_password}"
+# module "db" {
+#   source               = "./db"
+#   resource_group_name  = "${azurerm_resource_group.prod.name}"
+#   location             = "${azurerm_resource_group.prod.location}"
+#   service_principal_id = "${azurerm_user_assigned_identity.prod.principal_id }"
+#   admin_password       = "${var.admin_password}"
+# }
+
+module "vnet" {
+  source                 = "./vnet"
+  resource_group_name    = "${azurerm_resource_group.prod.name}"
+  location               = "${azurerm_resource_group.prod.location}"
+  subnet_frontend_prefix = "${var.subnet_frontend_prefix}"
+  subnet_backend_prefix  = "${var.subnet_backend_prefix}"
+  subnet_db_prefix       = "${var.subnet_db_prefix}"
 }
 
-module "vm"   {
+module "vm" {
   source               = "./vm"
   resource_group_name  = "${azurerm_resource_group.prod.name}"
   location             = "${azurerm_resource_group.prod.location}"
-  virtual_network_name = "${azurerm_virtual_network.prod.name}"
-  backend_subnet_id    = "${azurerm_subnet.backendsubnet.id}"
+  virtual_network_name = "${module.vnet.virtual_network_name}"
+  backend_subnet_id    = "${module.vnet.backend_subnet_id}"
   service_principal_id = "${azurerm_user_assigned_identity.prod.id }"
   ip                   = "${var.subnet_backend_prefix}"
   admin_password       = "${var.admin_password}"

@@ -1,38 +1,15 @@
-variable "azure_client_id" {
-  type = "string"
-}
-
-variable "azure_client_secret" {
-  type = "string"
-}
-
-variable "azure_tenant_id" {
-  type = "string"
-}
-
-variable "azure_subscription_id" {
-  type = "string"
-}
 
 variable "resource_group_name" {
   type        = "string"
   description = "Name of your resource group"
   default = "smotyka"
 }
-variable "admin_password" {
-  type  ="string"
-  description = "Password for SQL"  
-}
-variable "azure_principal_password" {
-  type = "string"
-  description = "Principal Password"
-}
-
 variable "location" {
   type        = "string"
   description = "The location of your resource group"
   default     = "West Europe"
 }
+
 
 variable "subnet_frontend_prefix" {
   description = "The address prefix to use for the subnet."
