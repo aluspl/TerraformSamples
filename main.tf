@@ -33,7 +33,7 @@ module "db" {
   source               = "./db"
   resource_group_name  = "${azurerm_resource_group.prod.name}"
   location             = "${azurerm_resource_group.prod.location}"
-  service_principal_id = "${azurerm_user_assigned_identity.prod.principal_id }"
+  service_principal_id = "${azurerm_user_assigned_identity.prod.id }"
   admin_password       = "${module.vault.admin_password}"
   dbsubnet_id          = "${module.vnet.db_subnet_id}"
 }
