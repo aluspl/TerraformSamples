@@ -4,9 +4,9 @@ resource "azurerm_resource_group" "prod" {
 }
 
 module "vault" {
-  source                      = "./vault"
-  resource_group_name         = "backupresource"
-  location                    = "${azurerm_resource_group.prod.location}"
+  source              = "./vault"
+  resource_group_name = "${azurerm_resource_group.prod.name}"
+  location            = "${azurerm_resource_group.prod.location}"
 }
 
 module "vnet" {

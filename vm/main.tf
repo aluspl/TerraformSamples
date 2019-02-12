@@ -40,7 +40,7 @@ resource "azurerm_virtual_machine" "prod" {
   }
 
   os_profile {
-    computer_name  = "dev_vm"
+    computer_name  = "vm"
     admin_username = "${var.admin_username}"
     admin_password = "${var.admin_password}"
   }

@@ -5,7 +5,7 @@ locals {
 }
 
 resource "azurerm_key_vault" "prod" {
-  name                        = "vault-${terraform.workspace}"
+  name                        = "${var.resource_group_name}-vault-${terraform.workspace}"
   resource_group_name         = "${var.resource_group_name}"
   location                    = "${var.location}"
   enabled_for_disk_encryption = true
