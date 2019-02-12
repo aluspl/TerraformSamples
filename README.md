@@ -8,6 +8,10 @@
 | NSG                     |     OK | main => subnet nsg                 |
 | Storage Terraform State |     OK | AzureBlob                          |
 | Best Practices          |     OK | Secrets, Variables, Default Values |
+| Modules                 |     OK | MOdules, variables,                |
+| Backend                 |     OK | package.json and provider          |
+| VM                      |     OK | VM module                          |
+| DB                      |     OK | DB Module                          |
 
 # Notes 
 
@@ -44,7 +48,7 @@ resource "azurerm_virtual_network" "vnet" {
   name                = "${var.resource_group_name}_vnet"
   location            = "${var.location}"
   address_space       = ["10.0.0.0/16"]
-  resource_group_name = "${azurerm_resource_group.production.name}"
+  resource_group_name = "${azurerm_resource_group.prod.name}"
 }
 ```
 
@@ -54,7 +58,7 @@ Create Subnet
 resource "azurerm_subnet" "subnet1" {
   name                 = "frontendsubnet"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
-  resource_group_name  = "${azurerm_resource_group.production.name}"
+  resource_group_name  = "${azurerm_resource_group.prod.name}"
   address_prefix       = "${var.subnet_frontend_prefix}" 
 }
 ```
@@ -62,8 +66,8 @@ resource "azurerm_subnet" "subnet1" {
 ```
 resource "azurerm_network_security_group" "backend" {
   name                = "backend_nsg"
-  location            = "${azurerm_resource_group.production.location}"
-  resource_group_name = "${azurerm_resource_group.production.name}"
+  location            = "${azurerm_resource_group.prod.location}"
+  resource_group_name = "${azurerm_resource_group.prod.name}"
 
   security_rule {  -- rules
     name                       = "allow_frontend"
@@ -118,4 +122,35 @@ To using Azure Storage Blog to keeping tfstate init:
 ```
 terraform init -backend-config="secret\backend.tfvars" -reconfigure
 ```
+using secrets in apply
+```
+terraform apply -var-file=secret\\env1.tfvars
+```
+# Workspace
+```
+terraform workspace new {workspace name} -- create new workspace
 
+terraform workspace select {workspace name}  -- changed workspace
+```
+
+Using in code
+```
+${terraform.workspace} -- variable to  use name in code
+```
+
+# Modules
+
+Resources,outputs and variables inside folder vm
+
+```
+module "vm" {
+  source               = "./vm"
+  resource_group_name  = "${azurerm_resource_group.prod.name}"
+  location             = "${azurerm_resource_group.prod.location}"
+  virtual_network_name = "${azurerm_virtual_network.prod.name}"
+  backend_subnet_id    = "${azurerm_subnet.backendsubnet.id}"
+  service_principal_id = "${azurerm_user_assigned_identity.prod.id }"
+  ip                   = "${var.subnet_backend_prefix}"
+  admin_password       = "${var.admin_password}"
+}
+```
