@@ -19,7 +19,7 @@ resource "azurerm_network_interface" "prod" {
 }
 
 resource "azurerm_virtual_machine" "prod" {
-  name                  = "${var.resource_group_name}-vm"
+  name                  = "${var.resource_group_name}_vm"
   location              = "${var.location}"
   resource_group_name   = "${var.resource_group_name}"
   network_interface_ids = ["${azurerm_network_interface.prod.id}"]
@@ -40,7 +40,7 @@ resource "azurerm_virtual_machine" "prod" {
   }
 
   os_profile {
-    computer_name  = "${var.resource_group_name}-vm"
+    computer_name  = "${var.resource_group_name}_vm"
     admin_username = "${var.admin_username}"
     admin_password = "${var.admin_password}"
   }

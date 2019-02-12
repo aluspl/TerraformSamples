@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "prod" {
-  name     = "${var.resource_group_name}-${terraform.workspace}"
+  name     = "${var.resource_group_name}_${terraform.workspace}"
   location = "${var.location}"
 }
 

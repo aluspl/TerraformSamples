@@ -36,22 +36,6 @@ resource "azurerm_sql_firewall_rule" "prod" {
   end_ip_address      = "0.0.0.0"
 }
 
-resource "azurerm_role_assignment" "sqldb" {
-  scope                = "${azurerm_sql_database.prod.id}"
-  role_definition_name = "Owner"
-  principal_id         = "${var.service_principal_id}"
-}
-
-resource "azurerm_role_assignment" "sqlserv" {
-  scope                = "${azurerm_sql_server.prod.id}"
-  role_definition_name = "Owner"
-  principal_id         = "${var.service_principal_id}"
-}
-resource "azurerm_role_assignment" "sqlelasticpool" {
-  scope                = "${azurerm_sql_elasticpool.prod.id}"
-  role_definition_name = "Owner"
-  principal_id         = "${var.service_principal_id}"
-}
 resource "azurerm_sql_virtual_network_rule" "sqlvnetrule" {
   name                = "sql-vnet-rule"
   resource_group_name = "${var.resource_group_name}"
