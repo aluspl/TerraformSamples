@@ -1,5 +1,10 @@
+resource "random_id" "server" {
+  length = 4
+  special = false
+  override_special = "/@\" "
+}
 resource "azurerm_sql_server" "prod" {
-  name                = "sql-server-${terraform.workspace}"
+  name                = "sql-server-${random_id.server.result}-${terraform.workspace}"
   resource_group_name = "${var.resource_group_name}"
   location            = "${var.location}"
 
