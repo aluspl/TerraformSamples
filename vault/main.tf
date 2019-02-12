@@ -10,16 +10,16 @@ resource "azurerm_key_vault" "prod" {
   location                    = "${var.location}"
   enabled_for_disk_encryption = true
   tenant_id                   = "${data.azurerm_client_config.current.tenant_id}"
+
   sku {
     name = "standard"
   }
 }
 
 resource "azurerm_key_vault_access_policy" "main" {
-  vault_name          = "${azurerm_key_vault.prod.name}"
-  resource_group_name = "${azurerm_key_vault.prod.resource_group_name}"
-  tenant_id           = "${data.azurerm_client_config.current.tenant_id}"
-  object_id           = "${data.azurerm_client_config.current.service_principal_object_id}"
+  key_vault_id = "${azurerm_key_vault.prod.id}"
+  tenant_id    = "${data.azurerm_client_config.current.tenant_id}"
+  object_id    = "${data.azurerm_client_config.current.service_principal_object_id}"
 
   key_permissions = [
     "create",
@@ -38,13 +38,14 @@ resource "random_id" "server" {
   keepers = {
     ami_id = 2
   }
+
   byte_length = 8
 }
 
 resource "azurerm_key_vault_secret" "prod" {
-  name      = "${terraform.workspace}-vm-secret"
-  value     = "${local.password}"
-  vault_uri = "${azurerm_key_vault.prod.vault_uri}"
+  name         = "${terraform.workspace}-vm-secret"
+  value        = "${local.password}"
+  key_vault_id = "${azurerm_key_vault.prod.id}"
 }
 
 output "admin_password" {
