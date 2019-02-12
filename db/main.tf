@@ -1,5 +1,5 @@
 resource "azurerm_sql_server" "prod" {
-  name                = "mssql-${terraform.workspace}"
+  name                = "sql-server-${terraform.workspace}"
   resource_group_name = "${var.resource_group_name}"
   location            = "${var.location}"
 
