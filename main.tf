@@ -7,9 +7,6 @@ module "vault" {
   source                      = "./vault"
   resource_group_name         = "backupresource"
   location                    = "${azurerm_resource_group.prod.location}"
-  service_principal_object_id = "${azuread_service_principal.prod.id }"
-  my_object_id                = "${var.my_object_id }"
-  azure_tenant_id             = "${var.azure_tenant_id}"
 }
 
 module "vnet" {
