@@ -3,7 +3,7 @@ resource "random_integer" "server" {
   max     = 99999
 }
 resource "azurerm_sql_server" "prod" {
-  name                = "sql-server-${random_integer.server.result}-${terraform.workspace}"
+  name                = "${var.resource_group_name}-sql-server-${random_integer.server.result}-${terraform.workspace}"
   resource_group_name = "${var.resource_group_name}"
   location            = "${var.location}"
 
