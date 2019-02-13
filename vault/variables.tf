@@ -9,3 +9,7 @@ variable "location" {
   description = "The location of your resource group"
   default     = "West Europe"
 }
+variable "my_object_id" {
+  type        = "string"
+  description = "The location of your resource group"
+}

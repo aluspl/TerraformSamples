@@ -59,3 +59,6 @@ variable "address_spaces" {
   description = "The address prefix to use for the subnet."
   default     = ["10.0.0.0/16"]
 }
+variable "init_script_url" {
+  description = "The address to init script"
+}

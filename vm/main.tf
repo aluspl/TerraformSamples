@@ -1,8 +1,8 @@
 resource "azurerm_public_ip" "main" {
-  name                         = "${var.resource_group_name}-vm-publicIP"
-  location                     = "${var.location}"
-  resource_group_name          = "${var.resource_group_name}"
-  allocation_method = "Dynamic"
+  name                = "${var.resource_group_name}-vm-publicIP"
+  location            = "${var.location}"
+  resource_group_name = "${var.resource_group_name}"
+  allocation_method   = "Dynamic"
 }
 
 resource "azurerm_network_interface" "prod" {
@@ -28,7 +28,7 @@ resource "azurerm_virtual_machine" "prod" {
   storage_image_reference {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
-    sku       = "2016-Datacenter-Server-Core-smalldisk"
+    sku       = "2016-Datacenter"
     version   = "latest"
   }
 

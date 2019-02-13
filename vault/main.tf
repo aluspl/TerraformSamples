@@ -5,7 +5,7 @@ locals {
 }
 
 resource "azurerm_key_vault" "prod" {
-  name                        = "${var.resource_group_name}-vault-${terraform.workspace}"
+  name                        = "${var.resource_group_name}-vault"
   resource_group_name         = "${var.resource_group_name}"
   location                    = "${var.location}"
   enabled_for_disk_encryption = true
@@ -24,6 +24,8 @@ resource "azurerm_key_vault_access_policy" "main" {
   key_permissions = [
     "create",
     "get",
+    "list",
+    "delete"
   ]
 
   secret_permissions = [
@@ -34,6 +36,25 @@ resource "azurerm_key_vault_access_policy" "main" {
   ]
 }
 
+
+resource "azurerm_key_vault_access_policy" "admin" {
+  key_vault_id = "${azurerm_key_vault.prod.id}"
+  tenant_id    = "${data.azurerm_client_config.current.tenant_id}"
+  object_id    = "${var.my_object_id}"
+  key_permissions = [
+    "create",
+    "get",
+    "list",
+    "delete"
+  ]
+
+  secret_permissions = [
+    "get",
+    "list",
+    "set",
+    "delete",
+  ]
+}
 resource "random_id" "server" {
   keepers = {
     ami_id = 2
