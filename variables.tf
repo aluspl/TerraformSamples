@@ -59,6 +59,21 @@ variable "address_spaces" {
   description = "The address prefix to use for the subnet."
   default     = ["10.0.0.0/16"]
 }
-variable "init_script_url" {
+variable "configuration_url" {
+  description = "The address to init script"
+}
+variable "registration_url" {
+  description = "The address to init script"
+}
+variable "registration_key" {
+  description = "The address to init script"
+}
+variable "script_name" {
+  description = "The address to init script"
+}
+variable "conde_configuration_name" {
+  description = "The address to init script"
+}
+variable "function_name" {
   description = "The address to init script"
 }

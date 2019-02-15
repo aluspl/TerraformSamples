@@ -2,7 +2,7 @@ resource "azurerm_public_ip" "main" {
   name                = "${var.resource_group_name}-vm-publicIP"
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 resource "azurerm_network_interface" "prod" {
@@ -33,7 +33,7 @@ resource "azurerm_virtual_machine" "prod" {
   }
 
   storage_os_disk {
-    name              = "myosdisk1"
+    name              = "vm_drive"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"

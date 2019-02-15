@@ -17,7 +17,7 @@ resource "azurerm_virtual_machine_extension" "dsc" {
     },
     "configurationArguments": {
       "RegistrationUrl": "${var.registration_url}",
-      "ComputerName": "localhost",
+      "ComputerName": "vm",
       "NodeConfigurationName": "${var.conde_configuration_name}",
       "RebootNodeIfNeeded": true
     }
