@@ -154,3 +154,158 @@ module "vm" {
   admin_password       = "${var.admin_password}"
 }
 ```
+
+# Additional scripts in powershell
+
+Azure Automation +  azurerm_virtual_machine_extension
+
+On Blob container zip with ps1 config: 
+```
+# The DSC configuration that will generate metaconfigurations
+[DscLocalConfigurationManager()]
+Configuration DscMetaConfigs
+{
+     param
+     (
+         [Parameter(Mandatory=$True)]
+         [String]$RegistrationUrl,
+
+         [Parameter(Mandatory=$True)]
+         [String]$RegistrationKey,
+
+         [Parameter(Mandatory=$True)]
+         [String[]]$ComputerName,
+
+         [Int]$RefreshFrequencyMins = 30,
+
+         [Int]$ConfigurationModeFrequencyMins = 15,
+
+         [String]$ConfigurationMode = 'ApplyAndMonitor',
+
+         [String]$NodeConfigurationName,
+
+         [Boolean]$RebootNodeIfNeeded= $False,
+
+         [String]$ActionAfterReboot = 'ContinueConfiguration',
+
+         [Boolean]$AllowModuleOverwrite = $False,
+
+         [Boolean]$ReportOnly
+     )
+
+     if(!$NodeConfigurationName -or $NodeConfigurationName -eq '')
+     {
+         $ConfigurationNames = $null
+     }
+     else
+     {
+         $ConfigurationNames = @($NodeConfigurationName)
+     }
+
+     if($ReportOnly)
+     {
+         $RefreshMode = 'PUSH'
+     }
+     else
+     {
+         $RefreshMode = 'PULL'
+     }
+
+     Node $ComputerName
+     {
+         Settings
+         {
+             RefreshFrequencyMins           = $RefreshFrequencyMins
+             RefreshMode                    = $RefreshMode
+             ConfigurationMode              = $ConfigurationMode
+             AllowModuleOverwrite           = $AllowModuleOverwrite
+             RebootNodeIfNeeded             = $RebootNodeIfNeeded
+             ActionAfterReboot              = $ActionAfterReboot
+             ConfigurationModeFrequencyMins = $ConfigurationModeFrequencyMins
+         }
+
+         if(!$ReportOnly)
+         {
+         ConfigurationRepositoryWeb AzureAutomationStateConfiguration
+             {
+                 ServerUrl          = $RegistrationUrl
+                 RegistrationKey    = $RegistrationKey
+                 ConfigurationNames = $ConfigurationNames
+             }
+
+             ResourceRepositoryWeb AzureAutomationStateConfiguration
+             {
+                 ServerUrl       = $RegistrationUrl
+                 RegistrationKey = $RegistrationKey
+             }
+         }
+
+         ReportServerWeb AzureAutomationStateConfiguration
+         {
+             ServerUrl       = $RegistrationUrl
+             RegistrationKey = $RegistrationKey
+         }
+     }
+}
+
+ # Create the metaconfigurations
+ # NOTE: DSC Node Configuration names are case sensitive in the portal.
+ # TODO: edit the below as needed for your use case
+$Params = @{
+     RegistrationUrl = 'url';
+     RegistrationKey = 'key';
+     ComputerName = @('vm');
+     NodeConfigurationName = 'InstallIIS.localhost';
+     RefreshFrequencyMins = 30;
+     ConfigurationModeFrequencyMins = 15;
+     RebootNodeIfNeeded = $False;
+     AllowModuleOverwrite = $False;
+     ConfigurationMode = 'ApplyAndMonitor';
+     ActionAfterReboot = 'ContinueConfiguration';
+     ReportOnly = $False;  # Set to $True to have machines only report to AA DSC but not pull from it
+}
+
+# Use PowerShell splatting to pass parameters to the DSC configuration being invoked
+# For more info about splatting, run: Get-Help -Name about_Splatting
+DscMetaConfigs @Params
+```
+
+
+With settings
+```
+resource "azurerm_virtual_machine_extension" "dsc" {
+  name                 = "DevOpsDSC"
+  location             = "${var.location}"
+  resource_group_name  = "${var.resource_group_name}"
+  virtual_machine_name = "${var.virtual_machine_name}"
+  publisher            = "Microsoft.Powershell"
+  type                 = "DSC"
+  type_handler_version = "2.73"
+
+  settings = <<SETTINGS
+  {
+    "wmfVersion": "latest",
+    "configuration": {
+      "url": "${var.configuration_url}",
+      "script": "${var.script_name}",
+      "function": "${var.function_name}"
+    },
+    "configurationArguments": {
+      "RegistrationUrl": "${var.registration_url}",
+      "ComputerName": "vm",
+      "NodeConfigurationName": "${var.conde_configuration_name}",
+      "RebootNodeIfNeeded": true
+    }
+  }
+SETTINGS
+
+  protected_settings = <<SETTINGS
+  {
+    "configurationArguments": {
+      "RegistrationKey": "${var.registration_key}"
+    }
+  }
+SETTINGS
+}
+
+```
