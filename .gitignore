@@ -2,3 +2,4 @@
 .terraform/*
 .terraform/plugins
 terraform.tfstate.d/*
+terraform.tfstate.backup
