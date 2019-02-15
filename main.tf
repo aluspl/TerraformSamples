@@ -56,6 +56,7 @@ module "vm_dct_chocolatey" {
   registration_key         = "${var.registration_key}"
   conde_configuration_name = "InstallNetCore.localhost"
 }
+
 # module "db" {
 #   source               = "./db"
 #   resource_group_name  = "${azurerm_resource_group.prod.name}"
