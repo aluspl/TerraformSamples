@@ -72,7 +72,7 @@ variable "script_name" {
   description = "The address to init script"
 }
 variable "conde_configuration_name" {
-  description = "The address to init script"
+  description = "The address to init script => name.localhost"
 }
 variable "function_name" {
   description = "The address to init script"
