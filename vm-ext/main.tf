@@ -1,5 +1,5 @@
 resource "azurerm_virtual_machine_extension" "dsc" {
-  name                 = "DevOpsDSC"
+  name                 = "DevOpsDSC-${var.conde_configuration_name}"
   location             = "${var.location}"
   resource_group_name  = "${var.resource_group_name}"
   virtual_machine_name = "${var.virtual_machine_name}"
@@ -18,7 +18,7 @@ resource "azurerm_virtual_machine_extension" "dsc" {
     "configurationArguments": {
       "RegistrationUrl": "${var.registration_url}",
       "ComputerName": "vm",
-      "NodeConfigurationName": "${var.conde_configuration_name}",
+      "NodeConfigurationName": "${var.conde_configuration_name}.localhost",
       "RebootNodeIfNeeded": true
     }
   }

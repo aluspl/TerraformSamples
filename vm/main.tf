@@ -34,10 +34,18 @@ resource "azurerm_virtual_machine" "prod" {
   }
 
   storage_os_disk {
-    name              = "vm_drive"
+    name              = "osdrive"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
+  }
+
+   storage_data_disk {
+    name              = "dddrive"
+    managed_disk_type = "Standard_LRS"
+    create_option     = "Empty"
+    lun               = 0
+    disk_size_gb      = "1024"
   }
 
   os_profile {

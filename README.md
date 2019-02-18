@@ -309,3 +309,4 @@ SETTINGS
 }
 
 ```
+When NodeConfigurationName is  Script name + localhost

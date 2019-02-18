@@ -42,7 +42,7 @@ module "vm_dct_iis" {
   function_name            = "${var.function_name}"
   registration_url         = "${var.registration_url}"
   registration_key         = "${var.registration_key}"
-  conde_configuration_name = "InstallIIS.localhost"
+  conde_configuration_name = "InstallIIS"
 }
 module "vm_dct_disc" {
   source                   = "./vm-ext"
@@ -54,7 +54,7 @@ module "vm_dct_disc" {
   function_name            = "${var.function_name}"
   registration_url         = "${var.registration_url}"
   registration_key         = "${var.registration_key}"
-  conde_configuration_name = "SetupDataDisk.localhost"
+  conde_configuration_name = "SetupDataDisk"
 }
 module "vm_dct_chocolatey" {
   source                   = "./vm-ext"
@@ -66,7 +66,7 @@ module "vm_dct_chocolatey" {
   function_name            = "${var.function_name}"
   registration_url         = "${var.registration_url}"
   registration_key         = "${var.registration_key}"
-  conde_configuration_name = "InstallNetCore.localhost"
+  conde_configuration_name = "InstallNetCore"
 }
 
 # module "db" {
