@@ -24,7 +24,7 @@ resource "azurerm_virtual_machine" "prod" {
   location              = "${var.location}"
   resource_group_name   = "${var.resource_group_name}"
   network_interface_ids = ["${azurerm_network_interface.prod.id}"]
-  vm_size               = "Standard_B2s"
+  vm_size               = "Standard_B1ms"
 
   storage_image_reference {
     publisher = "MicrosoftWindowsServer"
@@ -45,7 +45,7 @@ resource "azurerm_virtual_machine" "prod" {
     managed_disk_type = "Standard_LRS"
     create_option     = "Empty"
     lun               = 0
-    disk_size_gb      = "1024"
+    disk_size_gb      = "128"
   }
 
   os_profile {
