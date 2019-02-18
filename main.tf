@@ -44,6 +44,18 @@ module "vm_dct_iis" {
   registration_key         = "${var.registration_key}"
   conde_configuration_name = "InstallIIS.localhost"
 }
+module "vm_dct_disc" {
+  source                   = "./vm-ext"
+  resource_group_name      = "${azurerm_resource_group.prod.name}"
+  location                 = "${azurerm_resource_group.prod.location}"
+  virtual_machine_name     = "${module.vm.virtual_machine_name}"
+  configuration_url        = "${var.configuration_url}"
+  script_name              = "${var.script_name}"
+  function_name            = "${var.function_name}"
+  registration_url         = "${var.registration_url}"
+  registration_key         = "${var.registration_key}"
+  conde_configuration_name = "SetupDataDisk.localhost"
+}
 module "vm_dct_chocolatey" {
   source                   = "./vm-ext"
   resource_group_name      = "${azurerm_resource_group.prod.name}"
