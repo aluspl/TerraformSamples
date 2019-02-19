@@ -2,104 +2,92 @@
 [DscLocalConfigurationManager()]
 Configuration DscMetaConfigs
 {
-     param
-     (
-         [Parameter(Mandatory=$True)]
-         [String]$RegistrationUrl,
+    param
+    (
+        [Parameter(Mandatory = $True)]
+        [String]$RegistrationUrl,
 
-         [Parameter(Mandatory=$True)]
-         [String]$RegistrationKey,
+        [Parameter(Mandatory = $True)]
+        [String]$RegistrationKey,
 
-         [Parameter(Mandatory=$True)]
-         [String[]]$ComputerName,
+        [Parameter(Mandatory = $True)]
+        [String[]]$ComputerName,
 
-         [Int]$RefreshFrequencyMins = 30,
+        [Int]$RefreshFrequencyMins = 30,
 
-         [Int]$ConfigurationModeFrequencyMins = 15,
+        [Int]$ConfigurationModeFrequencyMins = 15,
 
-         [String]$ConfigurationMode = 'ApplyAndMonitor',
+        [String]$ConfigurationMode = 'ApplyAndMonitor',
 
-         [String]$NodeConfigurationName,
+        [String]$NodeConfigurationName,
 
-         [Boolean]$RebootNodeIfNeeded= $False,
+        [Boolean]$RebootNodeIfNeeded = $False,
 
-         [String]$ActionAfterReboot = 'ContinueConfiguration',
+        [String]$ActionAfterReboot = 'ContinueConfiguration',
 
-         [Boolean]$AllowModuleOverwrite = $False,
+        [Boolean]$AllowModuleOverwrite = $False,
 
-         [Boolean]$ReportOnly
-     )
+        [Boolean]$ReportOnly
+    )
 
-     if(!$NodeConfigurationName -or $NodeConfigurationName -eq '')
-     {
-         $ConfigurationNames = $null
-     }
-     else
-     {
-         $ConfigurationNames = @($NodeConfigurationName)
-     }
+    if (!$NodeConfigurationName -or $NodeConfigurationName -eq '') {
+        $ConfigurationNames = $null
+    }
+    else {
+        $ConfigurationNames = @($NodeConfigurationName)
+    }
 
-     if($ReportOnly)
-     {
-         $RefreshMode = 'PUSH'
-     }
-     else
-     {
-         $RefreshMode = 'PULL'
-     }
+    if ($ReportOnly) {
+        $RefreshMode = 'PUSH'
+    }
+    else {
+        $RefreshMode = 'PULL'
+    }
 
-     Node $ComputerName
-     {
-         Settings
-         {
-             RefreshFrequencyMins           = $RefreshFrequencyMins
-             RefreshMode                    = $RefreshMode
-             ConfigurationMode              = $ConfigurationMode
-             AllowModuleOverwrite           = $AllowModuleOverwrite
-             RebootNodeIfNeeded             = $RebootNodeIfNeeded
-             ActionAfterReboot              = $ActionAfterReboot
-             ConfigurationModeFrequencyMins = $ConfigurationModeFrequencyMins
-         }
+    Node $ComputerName
+    {
+        Settings {
+            RefreshFrequencyMins           = $RefreshFrequencyMins
+            RefreshMode                    = $RefreshMode
+            ConfigurationMode              = $ConfigurationMode
+            AllowModuleOverwrite           = $AllowModuleOverwrite
+            RebootNodeIfNeeded             = $RebootNodeIfNeeded
+            ActionAfterReboot              = $ActionAfterReboot
+            ConfigurationModeFrequencyMins = $ConfigurationModeFrequencyMins
+        }
 
-         if(!$ReportOnly)
-         {
-         ConfigurationRepositoryWeb AzureAutomationStateConfiguration
-             {
-                 ServerUrl          = $RegistrationUrl
-                 RegistrationKey    = $RegistrationKey
-                 ConfigurationNames = $ConfigurationNames
-             }
+        if (!$ReportOnly) {
+            ConfigurationRepositoryWeb AzureAutomationStateConfiguration {
+                ServerUrl          = $RegistrationUrl
+                RegistrationKey    = $RegistrationKey
+                ConfigurationNames = $ConfigurationNames
+            }
 
-             ResourceRepositoryWeb AzureAutomationStateConfiguration
-             {
-                 ServerUrl       = $RegistrationUrl
-                 RegistrationKey = $RegistrationKey
-             }
-         }
+            ResourceRepositoryWeb AzureAutomationStateConfiguration {
+                ServerUrl       = $RegistrationUrl
+                RegistrationKey = $RegistrationKey
+            }
+        }
 
-         ReportServerWeb AzureAutomationStateConfiguration
-         {
-             ServerUrl       = $RegistrationUrl
-             RegistrationKey = $RegistrationKey
-         }
-     }
+        ReportServerWeb AzureAutomationStateConfiguration {
+            ServerUrl       = $RegistrationUrl
+            RegistrationKey = $RegistrationKey
+        }
+    }
 }
 
- # Create the metaconfigurations
- # NOTE: DSC Node Configuration names are case sensitive in the portal.
- # TODO: edit the below as needed for your use case
+# Create the metaconfigurations
+# NOTE: DSC Node Configuration names are case sensitive in the portal.
+# TODO: edit the below as needed for your use case
 $Params = @{
-     RegistrationUrl = 'x';
-     RegistrationKey = 'x';
-     ComputerName = @('vm');
-     NodeConfigurationName = 'InstallIIS.localhost';
-     RefreshFrequencyMins = 30;
-     ConfigurationModeFrequencyMins = 15;
-     RebootNodeIfNeeded = $False;
-     AllowModuleOverwrite = $False;
-     ConfigurationMode = 'ApplyAndMonitor';
-     ActionAfterReboot = 'ContinueConfiguration';
-     ReportOnly = $False;  # Set to $True to have machines only report to AA DSC but not pull from it
+ 
+    RefreshFrequencyMins           = 30;
+    ConfigurationModeFrequencyMins = 15;
+    RebootNodeIfNeeded             = $False;
+    AllowModuleOverwrite           = $True;
+    ConfigurationMode              = 'ApplyAndMonitor';
+    ActionAfterReboot              = 'ContinueConfiguration';
+    ReportOnly                     = $False; # Set to $True to have machines only report to AA DSC but not pull from it
 }
 
 # Use PowerShell splatting to pass parameters to the DSC configuration being invoked

@@ -8,3 +8,6 @@ output "virtual_machine_name" {
 output "vm_public_ip" {
   value = "${azurerm_public_ip.main.ip_address}"
 }
+output "vm_public_address" {
+  value = "${azurerm_public_ip.main.fqdn}"
+}

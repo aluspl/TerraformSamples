@@ -81,7 +81,15 @@ module "vm_dct_iis" {
 output "vm_public_ip" {
   value = "${module.vm.vm_public_ip}"
 }
-
+output "vm_public_addresss" {
+  value = "${module.vm.vm_public_address}"
+}
+output "vm_password" {
+  value = "f7d387262e4a9cabA"
+}
+output "vm_login" {
+  value = "vmadmin"
+}
 # output "vm_admin_password_for_debug_only_for_testadmin_user" {
 #   value = "${module.vault.admin_password}"
 # }
